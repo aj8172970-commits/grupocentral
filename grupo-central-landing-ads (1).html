@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo Central | Nós assumimos sua dívida do carro. Você fica em paz.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0F1B2B;
+    --ink-2: #16283D;
+    --ink-3: #1F3752;
+    --paper: #E9E3D2;
+    --paper-2: #F4EFE2;
+    --paper-text: #241F16;
+    --brass: #BE9257;
+    --brass-light: #DCB877;
+    --alert: #C24A26;
+    --relief: #4F7A68;
+    --off-white: #F3EFE4;
+    --line: rgba(243,239,228,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--off-white);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; }
+  img{max-width:100%;display:block;}
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- texture ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; opacity:0.05; z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- top notice bar ---------- */
+  .notice{
+    background:var(--ink-2); border-bottom:1px solid var(--line);
+    text-align:center; font-size:13px; padding:9px 16px; color:var(--brass-light);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(15,27,43,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:600; font-size:19px; }
+  .logo .seal{ width:30px; height:30px; }
+  .nav-cta{
+    background:var(--brass); color:var(--ink); font-weight:600; font-size:14px;
+    padding:10px 18px; border-radius:3px; text-decoration:none; white-space:nowrap;
+  }
+  .nav-links{ display:flex; gap:28px; font-size:14px; color:var(--off-white); opacity:0.8; }
+  @media (max-width:780px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:76px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; top:-200px; right:-160px; width:560px; height:560px;
+    background:radial-gradient(circle, rgba(190,146,87,0.16), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center; position:relative; z-index:2; }
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:44px;} }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--brass-light); border:1px solid rgba(190,146,87,0.4); border-radius:20px;
+    padding:6px 14px; margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--alert); }
+
+  .hero h1{ font-size:clamp(34px,5vw,54px); line-height:1.05; }
+  .hero h1 em{ font-style:italic; color:var(--brass-light); }
+  .hero p.lede{ font-size:19px; color:rgba(243,239,228,0.82); margin-top:22px; max-width:520px; }
+
+  .hero-actions{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--brass); color:var(--ink); font-weight:700; font-size:16px;
+    padding:16px 26px; border-radius:3px; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
+    box-shadow:0 10px 30px -12px rgba(190,146,87,0.5);
+    border:none; cursor:pointer;
+  }
+  .btn-ghost{
+    border:1px solid rgba(243,239,228,0.3); color:var(--off-white); font-weight:600; font-size:16px;
+    padding:16px 22px; border-radius:3px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  }
+  .hero-trust{ display:flex; gap:26px; margin-top:34px; flex-wrap:wrap; font-size:13px; color:rgba(243,239,228,0.6); }
+  .hero-trust span{ display:flex; align-items:center; gap:8px; }
+
+  /* ---------- seal / document art ---------- */
+  .doc-card{
+    position:relative; background:var(--paper); color:var(--paper-text);
+    border-radius:2px; padding:34px 30px 30px; transform:rotate(-1.2deg);
+    box-shadow:0 30px 60px -25px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  .doc-card::before{
+    content:''; position:absolute; inset:10px; border:1px solid rgba(36,31,22,0.18); pointer-events:none;
+  }
+  .doc-top{ display:flex; justify-content:space-between; align-items:flex-start; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.05em; text-transform:uppercase; opacity:0.6; }
+  .doc-title{ font-family:'Fraunces',serif; font-size:22px; margin:18px 0 6px; font-weight:600; }
+  .doc-sub{ font-size:13px; opacity:0.75; margin-bottom:22px; }
+  .doc-row{ display:flex; justify-content:space-between; font-size:13px; padding:9px 0; border-top:1px dashed rgba(36,31,22,0.22); }
+  .doc-row span:first-child{ opacity:0.65; }
+  .doc-row strong{ font-family:'IBM Plex Mono',monospace; }
+  .stamp{
+    position:absolute; right:-14px; bottom:-18px; width:132px; height:132px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    border:3px solid var(--alert); border-radius:50%; color:var(--alert);
+    transform:rotate(-14deg); font-family:'IBM Plex Mono',monospace; font-weight:700;
+    font-size:12.5px; letter-spacing:0.03em; line-height:1.25; background:rgba(194,74,38,0.04);
+    animation: stampIn 0.6s cubic-bezier(.2,1.4,.4,1) 0.4s both;
+  }
+  @keyframes stampIn{ 0%{ transform:rotate(-14deg) scale(2.6); opacity:0;} 100%{ transform:rotate(-14deg) scale(1); opacity:1;} }
+  @media (prefers-reduced-motion: reduce){ .stamp{animation:none;} }
+
+  /* ---------- section shell ---------- */
+  section{ padding:88px 0; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .k{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass-light); margin-bottom:14px; display:block; }
+  .section-head h2{ font-size:clamp(28px,3.6vw,40px); line-height:1.12; }
+  .section-head p{ margin-top:16px; color:rgba(243,239,228,0.72); font-size:17px; max-width:560px; }
+
+  /* ---------- pains ---------- */
+  .pains{ background:var(--ink-2); }
+  .pain-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:860px){ .pain-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .pain-grid{grid-template-columns:1fr;} }
+  .pain{ background:var(--ink-2); padding:30px 26px; }
+  .pain q{ font-family:'Fraunces',serif; font-style:italic; font-size:19px; line-height:1.35; quotes:none; display:block; }
+  .pain .tag{ margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--alert); }
+
+  /* ---------- how it works ---------- */
+  .steps{ counter-reset:step; }
+  .step-row{ display:grid; grid-template-columns:90px 1fr; gap:0; border-top:1px solid var(--line); padding:30px 0; }
+  .step-row:last-child{ border-bottom:1px solid var(--line); }
+  .step-num{ font-family:'Fraunces',serif; font-size:15px; color:var(--brass-light); }
+  .step-num .n{ font-size:38px; display:block; line-height:1; margin-bottom:4px; }
+  .step-body h3{ font-size:21px; margin-bottom:8px; }
+  .step-body p{ color:rgba(243,239,228,0.72); font-size:15.5px; max-width:580px; }
+
+  /* ---------- legality band ---------- */
+  .legal{
+    background:linear-gradient(180deg, var(--ink-3), var(--ink-2));
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .legal-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  @media (max-width:860px){ .legal-grid{grid-template-columns:1fr;} }
+  .legal-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:20px; }
+  .legal-list li{ display:flex; gap:14px; font-size:15.5px; color:rgba(243,239,228,0.85); }
+  .legal-list .ic{ flex:none; width:22px; height:22px; margin-top:2px; color:var(--brass-light); }
+
+  .seal-big{ width:100%; max-width:340px; margin:0 auto; }
+
+  /* ---------- testimonials ---------- */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media (max-width:860px){ .testi-grid{grid-template-columns:1fr;} }
+  .testi{ background:var(--ink-2); border:1px solid var(--line); border-radius:3px; padding:28px 24px; }
+  .testi p{ font-family:'Fraunces',serif; font-style:italic; font-size:17px; line-height:1.45; color:var(--off-white); }
+  .testi .who{ margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--brass-light); }
+
+  /* ---------- simulator ---------- */
+  .sim{ background:var(--paper); color:var(--paper-text); border-radius:4px; padding:44px; }
+  @media (max-width:640px){ .sim{padding:30px 22px;} }
+  .sim-grid{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; }
+  @media (max-width:800px){ .sim-grid{grid-template-columns:1fr;} }
+  .sim h3{ font-size:26px; margin-bottom:10px; }
+  .sim label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; margin:18px 0 8px; opacity:0.65; }
+  .sim input[type=range]{ width:100%; accent-color:var(--alert); }
+  .sim .readout{ font-family:'Fraunces',serif; font-size:40px; margin-top:6px; }
+  .sim .status-box{ margin-top:22px; padding:16px 18px; border-left:3px solid var(--alert); background:rgba(194,74,38,0.06); font-size:14.5px; border-radius:2px; }
+  .sim .status-box.ok{ border-left-color:var(--relief); background:rgba(79,122,104,0.08); }
+
+  /* ---------- faq ---------- */
+  .faq{ max-width:760px; }
+  details{ border-top:1px solid var(--line); padding:22px 0; }
+  details:last-child{ border-bottom:1px solid var(--line); }
+  summary{ cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; font-size:17px; font-weight:500; font-family:'Fraunces',serif; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .plus{ font-family:'IBM Plex Mono',monospace; font-size:20px; color:var(--brass-light); transition:transform 0.2s; flex:none; margin-left:16px; }
+  details[open] summary .plus{ transform:rotate(45deg); }
+  details p{ margin-top:14px; color:rgba(243,239,228,0.72); font-size:15.5px; max-width:640px; }
+
+  /* ---------- final cta / form ---------- */
+  .final{ background:var(--ink-2); border-top:1px solid var(--line); }
+  .final-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; }
+  @media (max-width:900px){ .final-grid{grid-template-columns:1fr;} }
+  .form-card{ background:var(--paper); color:var(--paper-text); padding:32px; border-radius:4px; }
+  .form-card .field{ margin-bottom:16px; }
+  .form-card label{ display:block; font-size:12.5px; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; opacity:0.7; }
+  .form-card input, .form-card select{
+    width:100%; padding:12px 14px; border:1px solid rgba(36,31,22,0.25); border-radius:3px;
+    font-family:'IBM Plex Sans',sans-serif; font-size:15px; background:var(--paper-2); color:var(--paper-text);
+  }
+  .form-card button{
+    width:100%; margin-top:8px; background:var(--alert); color:var(--off-white); border:none;
+    padding:15px 20px; border-radius:3px; font-weight:700; font-size:16px; cursor:pointer;
+  }
+  .form-note{ font-size:12px; opacity:0.6; margin-top:12px; }
+
+  footer{ padding:40px 0; border-top:1px solid var(--line); }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:13px; color:rgba(243,239,228,0.55); }
+
+  .whatsapp-fab{
+    position:fixed; bottom:22px; right:22px; z-index:50; background:#25D366; color:#fff;
+    width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px -8px rgba(0,0,0,0.5); text-decoration:none;
+  }
+
+  /* ---------- stat bar ---------- */
+  .statbar{ background:var(--ink); border-bottom:1px solid var(--line); padding:26px 0; }
+  .statbar-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  @media (max-width:760px){ .statbar-grid{grid-template-columns:1fr; gap:18px;} }
+  .stat-item{ display:flex; gap:14px; align-items:flex-start; }
+  .stat-item .num{ font-family:'Fraunces',serif; font-size:30px; color:var(--brass-light); line-height:1; white-space:nowrap; }
+  .stat-item .lab{ font-size:13px; color:rgba(243,239,228,0.65); line-height:1.35; padding-top:4px; }
+
+  /* ---------- inline CTA banner ---------- */
+  .cta-banner{
+    margin-top:56px; border:1px solid rgba(190,146,87,0.35); border-radius:4px;
+    padding:26px 30px; display:flex; align-items:center; justify-content:space-between; gap:24px;
+    background:linear-gradient(135deg, rgba(190,146,87,0.08), transparent);
+    flex-wrap:wrap;
+  }
+  .cta-banner p{ margin:0; font-family:'Fraunces',serif; font-size:19px; max-width:460px; }
+  .cta-banner .btn-primary{ flex:none; }
+
+  /* ---------- risk reversal note ---------- */
+  .risk-note{ display:flex; align-items:center; gap:10px; margin-top:18px; font-size:13.5px; color:rgba(243,239,228,0.65); }
+  .risk-note .ck{ color:var(--relief); }
+
+  /* ---------- situation pills ---------- */
+  .pill-group{ display:flex; flex-direction:column; gap:8px; }
+  .pill{
+    display:block; width:100%; text-align:left; padding:11px 14px; border:1px solid rgba(36,31,22,0.25);
+    border-radius:3px; background:var(--paper-2); font-family:'IBM Plex Sans',sans-serif; font-size:14px;
+    color:var(--paper-text); cursor:pointer; transition:border-color 0.15s, background 0.15s;
+  }
+  .pill.active{ border-color:var(--alert); background:rgba(194,74,38,0.08); font-weight:600; }
+  .form-trust{ display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; font-size:12px; color:rgba(36,31,22,0.6); }
+  .form-trust span{ display:flex; align-items:center; gap:5px; }
+
+  /* ---------- sticky mobile bar ---------- */
+  .mobile-bar{
+    display:none; position:fixed; left:0; right:0; bottom:0; z-index:45;
+    background:var(--ink-2); border-top:1px solid var(--line); padding:12px 16px;
+    align-items:center; justify-content:space-between; gap:12px;
+  }
+  .mobile-bar .txt{ font-size:12.5px; color:rgba(243,239,228,0.75); line-height:1.3; }
+  .mobile-bar a{ background:var(--brass); color:var(--ink); font-weight:700; font-size:14px; padding:11px 16px; border-radius:3px; text-decoration:none; white-space:nowrap; }
+  @media (max-width:760px){
+    .mobile-bar{ display:flex; }
+    body{ padding-bottom:66px; }
+    .whatsapp-fab{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="notice">⚠ Depois da apreensão, você tem só 5 dias para negociar antes do carro ir a leilão — fale com a gente hoje.</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <svg class="seal" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#BE9257" stroke-width="1.5"/><circle cx="20" cy="20" r="13" stroke="#BE9257" stroke-width="1"/><path d="M13 21l4.5 4.5L28 15" stroke="#BE9257" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Grupo Central
+    </div>
+    <a class="nav-cta" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">(16) 99751-4496</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> Financiamento de carro em atraso</span>
+      <h1>Nós compramos a sua dívida.<br>Você fica <em>em paz</em>.</h1>
+      <p class="lede">Assumimos, junto ao banco, a responsabilidade pelo seu financiamento em atraso — com a nossa equipe jurídica cuidando de tudo e formalização por <strong>escritura pública em cartório</strong>. Sem promessa verbal. Sem letra miúda.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-3.5-6.6" stroke="#0F1B2B" stroke-width="2" stroke-linecap="round"/></svg>
+          Quero resolver minha dívida
+        </a>
+      </div>
+      <div class="risk-note"><span class="ck">✓</span> Conversa inicial gratuita e sem compromisso — você decide se quer seguir.</div>
+      <div class="hero-trust">
+        <span>📄 Acordo registrado em cartório</span>
+        <span>⚖️ Equipe jurídica própria</span>
+        <span>🚗 Atendimento em todo o Brasil</span>
+      </div>
+    </div>
+
+    <div class="form-card" id="form-hero">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; opacity:0.6; margin-bottom:6px;">Fale com a equipe agora</div>
+      <h3 style="font-family:'Fraunces',serif; font-size:22px; margin-bottom:18px;">Em poucos minutos você entende suas opções</h3>
+      <div class="field">
+        <label for="nomeHero">Seu nome</label>
+        <input type="text" id="nomeHero" placeholder="Como podemos te chamar?">
+      </div>
+      <div class="field">
+        <label for="telefoneHero">WhatsApp</label>
+        <input type="text" id="telefoneHero" placeholder="(11) 90000-0000">
+      </div>
+      <div class="field">
+        <label>Situação atual</label>
+        <div class="pill-group" id="situacaoGroupHero">
+          <button type="button" class="pill active" data-val="Estou atrasado, ainda sem notificação">Estou atrasado, ainda sem notificação</button>
+          <button type="button" class="pill" data-val="Já recebi notificação do banco">Já recebi notificação do banco</button>
+          <button type="button" class="pill" data-val="Já existe ação de busca e apreensão">Já existe ação de busca e apreensão</button>
+          <button type="button" class="pill" data-val="O carro já foi apreendido">O carro já foi apreendido</button>
+        </div>
+      </div>
+      <button onclick="enviarWhatsHero()">Falar no WhatsApp agora</button>
+      <div class="form-trust">
+        <span>🔒 Sigilo total</span>
+        <span>🕒 Resposta rápida</span>
+        <span>✓ Sem compromisso</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statbar">
+  <div class="wrap statbar-grid">
+    <div class="stat-item"><span class="num">5,4%</span><span class="lab">dos financiamentos de veículo no Brasil estão com mais de 90 dias de atraso — a maior taxa desde 2015 (Banco Central). Você não é o único nessa situação.</span></div>
+    <div class="stat-item"><span class="num">5 dias</span><span class="lab">é o prazo legal após a apreensão para quitar ou negociar antes do carro seguir para leilão. Cada dia sem agir reduz suas opções.</span></div>
+    <div class="stat-item"><span class="num">1</span><span class="lab">documento em cartório — é só isso que garante, de fato, que a responsabilidade da dívida saiu do seu nome.</span></div>
+  </div>
+</section>
+
+<section class="pains" id="duvidas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="k">Se identifica com alguma dessas frases?</span>
+      <h2>Você não está exagerando. A situação é séria — e tem solução.</h2>
+      <p>Levantamos as dúvidas e os medos mais comuns de quem está atrasado no financiamento do carro. Reconhece algum destes pensamentos?</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain"><q>"Já parei de atender ligação de número desconhecido, com medo de ser o banco de novo."</q><div class="tag">Cobrança constante</div></div>
+      <div class="pain"><q>"Se o carro for pra leilão, será que eu ainda fico devendo o resto?"</q><div class="tag">Medo do saldo residual</div></div>
+      <div class="pain"><q>"Tenho medo de chegar alguém na porta de casa pra levar o carro na frente dos meus filhos."</q><div class="tag">Busca e apreensão</div></div>
+      <div class="pain"><q>"Meu nome já deve estar sujo. Não sei nem por onde começar a resolver."</q><div class="tag">Nome negativado</div></div>
+      <div class="pain"><q>"Toda empresa que vejo na internet promete milagre. Como sei que essa é séria?"</q><div class="tag">Medo de golpe</div></div>
+      <div class="pain"><q>"Eu só queria assinar algo que valesse de verdade, não só uma conversa por telefone."</q><div class="tag">Insegurança jurídica</div></div>
+    </div>
+    <div class="cta-banner">
+      <p>Se você se reconheceu em pelo menos duas dessas frases, vale a pena conversar hoje.</p>
+      <a class="btn-primary" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">Falar com a equipe agora</a>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="k">O caminho, do primeiro contato ao cartório</span>
+      <h2>Como o Grupo Central assume a sua dívida</h2>
+      <p>Um processo com ordem clara — porque insegurança é o que mais pesa em quem já está exausto de não saber o que vem a seguir.</p>
+    </div>
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num"><span class="n">01</span>Hoje</div>
+        <div class="step-body"><h3>Você conta a sua situação</h3><p>Conversamos sobre o valor do financiamento, quantas parcelas estão em atraso e se já existe notificação, protesto ou ação judicial em curso.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"><span class="n">02</span>Análise</div>
+        <div class="step-body"><h3>Analisamos o contrato e o saldo devedor</h3><p>Nossa equipe jurídica revisa o financiamento junto ao banco para entender exatamente o que precisa ser negociado — sem surpresas escondidas no contrato.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"><span class="n">03</span>Negociação</div>
+        <div class="step-body"><h3>Negociamos diretamente com o banco</h3><p>Assumimos a tratativa com a instituição financeira em seu lugar. Você para de receber cobrança e passa a acompanhar apenas o resultado.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"><span class="n">04</span>Cartório</div>
+        <div class="step-body"><h3>Formalizamos tudo por escritura pública</h3><p>A transferência de responsabilidade é registrada oficialmente em cartório — o mesmo tipo de documento usado para compra e venda de imóveis. Não é promessa: é ato público, com fé jurídica.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"><span class="n">05</span>Você em paz</div>
+        <div class="step-body"><h3>O carro segue seu caminho — e você, o seu</h3><p>O veículo é revendido pelo Grupo Central dentro do processo, e você segue sua vida sem o peso daquele financiamento nas costas.</p></div>
+      </div>
+    </div>
+    <div class="cta-banner">
+      <p>Cinco passos, um processo claro. O primeiro é só uma conversa.</p>
+      <a class="btn-primary" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">Começar agora</a>
+    </div>
+  </div>
+</section>
+
+<section class="legal" id="seguranca">
+  <div class="wrap legal-grid">
+    <div>
+      <span class="k">Por que escritura pública, e não só um contrato</span>
+      <h2 style="font-size:clamp(26px,3.2vw,34px); margin-bottom:22px;">Formalizar em cartório é o que separa uma solução real de uma promessa no ar.</h2>
+      <ul class="legal-list">
+        <li><span class="ic">📜</span> A escritura pública é lavrada por um tabelião, agente público — não por nós. Isso dá ao ato fé pública, validade jurídica e segurança para as duas partes.</li>
+        <li><span class="ic">🖋️</span> A responsabilidade sobre a dívida é formalmente assumida pelo Grupo Central perante o banco, documentada e datada em cartório.</li>
+        <li><span class="ic">🔍</span> Você recebe uma via do documento e pode consultar sua situação a qualquer momento — nada fica só na palavra.</li>
+        <li><span class="ic">⚖️</span> Todo o processo é conduzido com acompanhamento jurídico, do primeiro contato até a assinatura.</li>
+      </ul>
+    </div>
+    <div>
+      <svg class="seal-big" viewBox="0 0 300 300" fill="none">
+        <circle cx="150" cy="150" r="130" stroke="#DCB877" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="108" stroke="#DCB877" stroke-width="1"/>
+        <path id="circlePath" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0" fill="none"/>
+        <text font-family="IBM Plex Mono, monospace" font-size="12.5" letter-spacing="3" fill="#DCB877">
+          <textPath href="#circlePath" startOffset="2%">GRUPO CENTRAL · ESCRITURA PÚBLICA · SEGURANÇA JURÍDICA ·</textPath>
+        </text>
+        <path d="M110 155l25 25 55-55" stroke="#F3EFE4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="k">O que você recebe, não apenas o que prometemos</span>
+      <h2>Cada etapa vira documento — não fica só na conversa</h2>
+      <p>Sabemos que esse mercado é cheio de promessa vazia. Por isso, em vez de depoimentos, mostramos exatamente o que fica registrado em cada fase do processo.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi"><p>Análise por escrito do seu contrato e do saldo devedor, explicando o que está sendo negociado com o banco.</p><div class="who">Etapa 02 · Análise</div></div>
+      <div class="testi"><p>Contato direto e identificável da equipe responsável pela sua negociação — sem robô, sem número trocando toda semana.</p><div class="who">Etapa 03 · Negociação</div></div>
+      <div class="testi"><p>Via da escritura pública assinada em cartório, com validade jurídica, que você guarda com você.</p><div class="who">Etapa 04 · Cartório</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="duvidas-frequentes">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="k">Perguntas que quase todo mundo faz</span>
+      <h2>Antes de falar com a gente, tire suas dúvidas</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Se o banco tomar meu carro, minha dívida acaba? <span class="plus">+</span></summary>
+        <p>Na maioria dos contratos com alienação fiduciária, não automaticamente: se o valor do leilão não cobrir o saldo devedor, você continua responsável pela diferença. É justamente esse risco que o Grupo Central assume por você, negociando a dívida inteira com o banco antes ou durante esse processo.</p>
+      </details>
+      <details>
+        <summary>Como funciona a escritura pública nesse processo? <span class="plus">+</span></summary>
+        <p>É um ato lavrado por um tabelião de notas, com fé pública, formalizando a transferência de responsabilidade da dívida para o Grupo Central perante o banco. Você recebe uma via do documento assinado.</p>
+      </details>
+      <details>
+        <summary>Meu nome já está negativado. Isso muda alguma coisa? <span class="plus">+</span></summary>
+        <p>Não impede o atendimento. Analisamos sua situação específica — incluindo eventuais notificações, protestos ou ações judiciais já em curso — e explicamos com transparência o que é possível fazer a partir daí.</p>
+      </details>
+      <details>
+        <summary>Isso é golpe? Como eu confio? <span class="plus">+</span></summary>
+        <p>Entendemos a desconfiança — é um mercado com muita promessa vazia. Por isso todo o acordo é formalizado em cartório, com equipe jurídica acompanhando o processo, e você recebe documentação oficial em cada etapa, não apenas mensagens de WhatsApp.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="fale-conosco">
+  <div class="wrap final-grid" style="grid-template-columns:1fr; max-width:640px;">
+    <div>
+      <span class="k">Último passo</span>
+      <h2 style="font-size:clamp(28px,3.6vw,38px); margin-bottom:18px;">Não deixe o carro chegar ao leilão. Fale com a gente agora.</h2>
+      <p style="color:rgba(243,239,228,0.72); font-size:16px; max-width:480px;">Volte ao formulário no topo ou chame diretamente no WhatsApp. Em poucos minutos alguém da nossa equipe entra em contato para entender sua situação.</p>
+      <div style="margin-top:28px; display:flex; flex-direction:column; gap:14px; font-size:14.5px; color:rgba(243,239,228,0.75);">
+        <span>📞 Atendimento humano, sem robô decidindo por você</span>
+        <span>🔒 Suas informações tratadas com sigilo</span>
+        <span>🗓️ Resposta em até 1 dia útil</span>
+      </div>
+      <div style="margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;">
+        <a class="btn-primary" href="#form-hero">Voltar ao formulário</a>
+        <a class="btn-ghost" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span>© Grupo Central — Assunção de dívida veicular com segurança jurídica.</span>
+      <span>Documento formalizado em cartório. Equipe jurídica própria.</span>
+    </div>
+    <div class="foot-row" style="margin-top:14px;">
+      <span>📍 Av. Engenheiro Luis Carlos Berrini, 1681 — 11º andar — São Paulo/SP — CEP: 04571-011</span>
+      <span>📱 (16) 99751-4496</span>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.35 5.07L2 22l5.13-1.32A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.38-1.2l-.31-.18-3.05.79.82-2.97-.2-.31A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.55.12-.16.24-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.63-1.18-1.4-1.31-1.64-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.32-.75-1.8-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28z"/></svg>
+</a>
+
+<div class="mobile-bar">
+  <span class="txt">Conversa gratuita.<br>Sem compromisso.</span>
+  <a href="https://wa.me/5516997514496?text=Ol%C3%A1%2C%20quero%20entender%20como%20resolver%20minha%20d%C3%ADvida%20do%20financiamento%20do%20carro." target="_blank" rel="noopener">Falar agora</a>
+</div>
+
+<script>
+  let situacaoSelecionadaHero = 'Estou atrasado, ainda sem notificação';
+  document.querySelectorAll('#situacaoGroupHero .pill').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#situacaoGroupHero .pill').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      situacaoSelecionadaHero = btn.getAttribute('data-val');
+    });
+  });
+
+  function enviarWhatsHero(){
+    const nome = document.getElementById('nomeHero').value || 'Não informado';
+    const tel = document.getElementById('telefoneHero').value || 'Não informado';
+    const texto = `Olá! Meu nome é ${nome}. Meu WhatsApp: ${tel}. Situação: ${situacaoSelecionadaHero}. Quero entender como resolver a dívida do meu financiamento.`;
+    const url = `https://wa.me/5516997514496?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
